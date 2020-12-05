@@ -4,7 +4,7 @@ $(function() {
     type: "GET"
   }).then(function(data) {
     var devouredElem = $("#devouredburgers");
-    var nodevouredElem = $("#notdevouredburgers");
+    var notdevouredElem = $("#notdevouredburgers");
 
     var burgers = data.burgers;
     var len = burgers.length;
@@ -24,7 +24,7 @@ $(function() {
       if (burgers[i].devoured) {
         new_elem += "devoured TIME!";
       } else {
-        new_elem += "WAKE UP!";
+        new_elem += "devour!";
       }
 
       new_elem += "</button>";
@@ -37,7 +37,7 @@ $(function() {
       if (burgers[i].devoured) {
         devouredElem.append(new_elem);
       } else {
-        nodevouredElem.append(new_elem);
+        notdevouredElem.append(new_elem);
       }
     }
   }); 
@@ -55,11 +55,11 @@ $(function() {
       type: "PUT",
       data: JSON.stringify(newdevouredState),
       dataType:'json',
-      contentType: 'appliburgerion/json'
+      contentType: 'application/json'
     }).then(function() {
       console.log("changed devoured to", newdevoured);
       // Reload the page to get the updated list
-      loburgerion.reload();
+      location.reload();
     });
   });
 
@@ -69,9 +69,6 @@ $(function() {
 
     var newburger = {
       name: $("#ca")
-        .val()
-        .trim(),
-      devoured: $("[name=devoured]:checked")
         .val()
         .trim()
     };
